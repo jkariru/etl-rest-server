@@ -492,7 +492,7 @@ module.exports = function () {
             var multiQueryPartsArray = db.reportMultiQueryServer(singleReportQueryParams);
             db.ExecuteMultiReport(multiQueryPartsArray[0], multiQueryPartsArray[1], function(results){
                 var formattedResult= [];
-                if(util.isArray(results.result[0])){
+                if(results.result!==undefined && (util.isArray(results.result[0]))){
                     _.each(results.result, function(result){
                         formattedResult= formattedResult.concat(result);
                     })
