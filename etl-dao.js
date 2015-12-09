@@ -472,14 +472,15 @@ module.exports = function () {
             var countBy = request.query.countBy;
             var startDate = request.query.startDate || new Date().toISOString().substring(0, 10);
             var endDate = request.query.endDate || new Date().toISOString().substring(0, 10);
-            var locations = request.query.locations;
+            var locations = request.query.locationId;
+
             //build query params
             var requestParams = {
                 reportName: reportName,
                 whereParams: [
                     {"name": "startDate", "value": startDate},
                     {"name": "endDate", "value": endDate},
-                    {"name": "location", "value": locations}
+                    {"name": "locations", "value": locations}
                 ],
                 countBy: countBy || 'num_persons',
                 groupBy: request.query.groupBy || 'groupByLocation',
