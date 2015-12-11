@@ -77,17 +77,7 @@
         "label":"screened_for_tb",
         "sql":"count(distinct if($expression,encounter_id,null))"
       },
-      {
-        "label":"condoms_provided",
-        "expression":"condoms_provided",
-        "sql":"count(distinct if($expression,encounter_id,null))"
-      },
-      {
-        "label":"using_modern_contracept_methods",
-        "expression":"using_modern_contracept_methods",
-        "sql":"count(distinct if($expression,person_id,null))"
-      },
-      {
+       {
         "label":"female_gte_18yo_visits",
         "expression":"female_gte_18yo_visits",
         "sql":"count(distinct if($expression,person_id,null))"
@@ -144,9 +134,6 @@
         "reportName":"moh-731-past_three_months",
         "alias": "t1"
       }
-
-
-
     ]
   }
 ]
