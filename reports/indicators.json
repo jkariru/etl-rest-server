@@ -138,50 +138,66 @@
     {
         "name":"on_original_first_line",
         "label": "Total # of patients on original ART regimen",
-        "expression": "cur_arv_meds = arv_first_regimen"
+        "expression": ""
     },
     {
         "name":"on_alternative_first_line",
         "label": "Total # of patients on original ART regimen",
-        "expression": "cur_arv_meds != arv_first_regimen and cur_arv_line = 1"
+        "expression": ""
     },
     {
         "name":"on_second_line",
         "label": "Total # of patients on original ART regimen",
-        "expression": "cur_arv_meds != arv_first_regimen and cur_arv_line = 2"
+        "expression": ""
     },
     {
         "name":"screened_for_tb",
         "label": "Total # of  patients screened for TB",
-        "expression": "screened_for_tb"
+        "expression": ""
     },
 
     {
         "name":"using_modern_contracept_methods",
         "label": " # of patients using modern contraceptive methods (IUD, injectables, OCP)",
-        "expression": "using_modern_contracept_methods = 1"
+        "expression": ""
     },
     {
         "name":"condoms_provided",
         "label": " # of patients provided with condoms",
-        "expression": "condoms_provided = 1"
+        "expression": ""
     },
      {
         "name":"scheduled_visits",
         "label": "Scheduled visit",
-        "expression": "scheduled_visit = 1"
+        "expression": ""
 
     },
     {
         "name":"unscheduled_visits",
         "label": "Unscheduled visit",
-        "expression": "scheduled_visit = 1"
+        "expression": ""
     },
     {
         "name":"on_art",
         "label": "Total #  patient on ART",
-        "expression": "scheduled_visit = 1"
-    }
+        "expression": ""
+    },
+    {
+        "name":" percent_vl_lte_1000",
+        "label": "percent_vl_lte_1000",
+        "expression": ""
+    },
+    {
+        "name":" percentage_on_arvs",
+        "label": "percentage_on_arvs",
+        "expression":""
+    },
+    {
+    "name":"percentage_with_vl",
+    "label": "percentage_with_vl",
+    "expression": ""
+     }
+
 ]
 
 
