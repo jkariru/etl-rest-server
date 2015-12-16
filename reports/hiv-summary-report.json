@@ -138,29 +138,13 @@
                 "label":"pregnant_and_on_arvs",
                 "expression":"pregnant_and_on_arvs",
                 "sql":"count(distinct if($expression,person_id,null))"
+            },
+            {
+                "label":"percentage_on_arvs",
+                "expression":" percent_vl_lte_1000",
+                "sql":"count(distinct if(person_id  is not null,person_id,null))/count(distinct person_id)"
             }
-        ],
-        "supplementColumns":[
-               {
-                   "label":"location",
-                   "type":"single",
-                   "sql":"t2.name"
-               },
-               {
-                   "label":"location_uuid",
-                   "type":"single",
-                   "sql":"t1.location_uuid"
-               },
-               {
-                   "label":"location_id",
-                   "type":"single",
-                   "sql":"t1.location_id"
-               },
-               {
-                   "label":"encounter_datetime",
-                   "type":"single",
-                   "sql":"t1.encounter_datetime"
-               }
-           ]
+
+        ]
     }
 ]

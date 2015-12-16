@@ -467,12 +467,15 @@ module.exports = function () {
             });
         },
         getReportIndicators: function getReportIndicators(request, callback) {
-            console.log('Getting Here', request.query);
+            console.log('Getting Here>getReportIndicators', request.query);
             var reportName = request.query.report;
             var countBy = request.query.countBy;
             var startDate = request.query.startDate || new Date().toISOString().substring(0, 10);
             var endDate = request.query.endDate || new Date().toISOString().substring(0, 10);
-            var locations = request.query.locationIds;
+                        var locations = [];
+                        _.each(request.query.locations.split(','), function (loc) {
+                            locations.push(Number(loc));
+                        });
             var requestIndicators = request.query.indicators;
             //build query params
             var requestParams = {
@@ -571,7 +574,7 @@ module.exports = function () {
 
         },
         getPatientListByIndicator: function getPatientListByIndicator(request, callback) {
-            console.log('Getting Here', request.query);
+            console.log('Getting Here>getPatientListByIndicator', request.query);
             var reportIndicator = request.query.indicator;
             var location = request.params.location;
             var startDate = request.query.startDate || new Date().toISOString().substring(0, 10);
@@ -612,7 +615,7 @@ module.exports = function () {
             });
         },
         getPatientByIndicatorAndLocation: function getPatientByIndicator(request, callback) {
-            console.log('Getting Here', request.query);
+            console.log('Getting Here>getPatientByIndicatorAndLocation', request.query);
             var reportIndicator = request.query.indicator;
             var startDate = request.query.startDate || new Date().toISOString().substring(0, 10);
             var endDate = request.query.endDate || new Date().toISOString().substring(0, 10);
@@ -657,7 +660,7 @@ module.exports = function () {
             });
         },
         getIndicatorsSchemaWithSections: function getIndicatorsSchemaWithSections(request, callback) {
-            console.log('Getting Here', request.query);
+            console.log('Getting Here>getIndicatorsSchemaWithSections', request.query);
             var reportName = request.query.report;
             //Check for undefined query field
             if (reportName === undefined)
@@ -674,7 +677,7 @@ module.exports = function () {
             });
         },
         getIndicatorsSchema: function getIndicatorsSchema(request, callback) {
-            console.log('Getting Here', request.query);
+            console.log('Getting Here>getIndicatorsSchema', request.query);
             var reportName = request.query.report;
             //Check for undefined query field
             if (reportName === undefined)

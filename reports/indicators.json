@@ -138,65 +138,110 @@
     {
         "name":"on_original_first_line",
         "label": "Total # of patients on original ART regimen",
-        "expression": ""
+        "expression": "cur_arv_meds = arv_first_regimen"
     },
     {
         "name":"on_alternative_first_line",
         "label": "Total # of patients on original ART regimen",
-        "expression": ""
+        "expression": "cur_arv_meds != arv_first_regimen and cur_arv_line = 1"
     },
     {
         "name":"on_second_line",
         "label": "Total # of patients on original ART regimen",
-        "expression": ""
+        "expression": "cur_arv_meds != arv_first_regimen and cur_arv_line = 2"
     },
     {
         "name":"screened_for_tb",
         "label": "Total # of  patients screened for TB",
-        "expression": ""
+        "expression": "screened_for_tb"
     },
 
     {
         "name":"using_modern_contracept_methods",
         "label": " # of patients using modern contraceptive methods (IUD, injectables, OCP)",
-        "expression": ""
+        "expression": "using_modern_contracept_methods = 1"
     },
     {
         "name":"condoms_provided",
         "label": " # of patients provided with condoms",
-        "expression": ""
+        "expression": "condoms_provided = 1"
     },
      {
         "name":"scheduled_visits",
         "label": "Scheduled visit",
-        "expression": ""
+        "expression": "scheduled_visit = 1"
 
     },
     {
         "name":"unscheduled_visits",
         "label": "Unscheduled visit",
-        "expression": ""
+        "expression": "scheduled_visit = 1"
     },
     {
         "name":"on_art",
         "label": "Total #  patient on ART",
-        "expression": ""
+        "expression": "scheduled_visit = 1"
     },
     {
         "name":" percent_vl_lte_1000",
-        "label": "percent_vl_lte_1000",
+        "label": " percent_vl_lte_1000",
         "expression": ""
     },
     {
         "name":" percentage_on_arvs",
         "label": "percentage_on_arvs",
-        "expression":""
+        "expression":"person_id  is not null"
     },
     {
     "name":"percentage_with_vl",
     "label": "percentage_with_vl",
     "expression": ""
-     }
+     },
+    {
+        "name":"starting_art_total",
+        "label": "Total # of patients starting ART",
+        "expression": "encounter_datetime = arv_start_date"
+    },
+
+    {
+        "name":"starting_art_males_lt_one",
+        "label": "Total # of male patients < 1 yr starting ART",
+        "expression": "encounter_datetime = arv_start_date and gender='M' and timestampdiff(year,birthdate,encounter_datetime) < 1"
+    },
+
+    {
+        "name":"starting_art_females_lt_one",
+        "label": "Total # of female patients < 1 yr starting ART",
+        "expression": "encounter_datetime = arv_start_date and gender='F' and timestampdiff(year,birthdate,encounter_datetime) < 1"
+
+    },
+
+    {
+        "name":"starting_art_males_1_to_15",
+        "label": "Total # of male patients between 1 and 15 starting ART",
+        "expression": "encounter_datetime = arv_start_date and gender='M' and timestampdiff(year,birthdate,encounter_datetime) >= 1 and timestampdiff(year,birthdate,encounter_datetime) < 15"
+
+    },
+
+    {
+        "name":"starting_art_females_1_to_15",
+        "label": "Total # of female patients between 1 and 15 starting ART",
+        "expression": "encounter_datetime = arv_start_date and gender='F' and timestampdiff(year,birthdate,encounter_datetime) >= 1 and timestampdiff(year,birthdate,encounter_datetime) < 15"
+
+    },
+
+    {
+        "name":"starting_art_males_15_and_older",
+        "label": "Total # of male patients 15 and older starting ART",
+        "expression": "encounter_datetime = arv_start_date and gender='M' and timestampdiff(year,birthdate,encounter_datetime) >= 15"
+    },
+
+    {
+        "name":"starting_art_females_15_and_older",
+        "label": "Total # of female patients 15 and older starting ART",
+        "expression": "encounter_datetime = arv_start_date and gender='F' and timestampdiff(year,birthdate,encounter_datetime) >= 15"
+    }
+
 
 ]
 
