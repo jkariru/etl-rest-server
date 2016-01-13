@@ -11,8 +11,33 @@ var tls = require('tls');
 var fs = require('fs');
 var routes = require('./etl-routes');
 var elasticRoutes = require('./elastic/routes/care.treatment.routes');
+/**
+var mqtt    = require('mqtt');
+var client  = mqtt.connect('mqtt://localhost:1883',{username:'admin','password':'admin'});
 
+client.on('connect',function () {
+  client.subscribe('presence');
+  client.publish('presence', 'Hello mqtt');
+});
 
+client.on('message', function (topic, message) {
+  // message is Buffer
+  console.log(message.toString());
+  client.end();
+});var mqtt    = require('mqtt');
+var client  = mqtt.connect('mqtt://localhost:1883',{username:'admin','password':'admin'});
+
+client.on('connect',function () {
+  client.subscribe('presence');
+  client.publish('presence', 'Hello mqtt');
+});
+
+client.on('message', function (topic, message) {
+  // message is Buffer
+  console.log(message.toString());
+  client.end();
+});
+**/
 var httpsServer = tls.createServer({
   key: fs.readFileSync(settings.sslSettings.key),
    cert: fs.readFileSync(settings.sslSettings.crt)
@@ -27,7 +52,7 @@ var server = new Hapi.Server(
 
 
 server.connection({
-    port: 8002,
+    port: 8078,
     // host:'localhost',
     tls: httpsServer
 });

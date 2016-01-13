@@ -1,0 +1,114 @@
+// playground requires you to assign document definition to a variable called dd
+
+var dd = {
+content: [
+{
+text: 'GK Dispensary Eldoret',
+style: 'header',
+alignment: 'center'
+},
+{
+stack: [
+'National Aids And STI Controll Program',
+{ text: 'MOH-731 Comprehensive hiv/aids Facility Report Form', style: 'subheader' },
+],
+style: 'subheader'
+},
+{
+columns: [
+{
+width: '*',
+text: 'District'
+},
+{
+width: '*',
+text: 'County '
+},
+{
+width: '*',
+text: 'facility'
+},
+{
+width: '*',
+text:[
+{text: 'Month: May,',alignment: 'left'},
+{text: 'Year: 2015',alignment: 'right'}
+
+]
+},
+]
+},
+
+{  },
+
+{
+style: 'tableExample',
+table: {
+widths: [150,10,10,10,'*'],
+body: [
+[{text:'Column1',style:'sectionhead'}, '','','',''],
+[
+{
+table: {
+widths: ['*'],
+body:[
+
+[ 'Enrolled In care '],
+[ 'Starting  on  phph']
+]
+}
+},
+{ text:''
+},
+{ text: ''
+},
+{ text:''
+},
+[
+{	table: {
+widths: [50,'*'],
+body: [
+
+[ 'HIV03', '2'],
+[ 'HIV03', '2']
+]
+},
+}
+]
+]
+]
+}
+},
+
+
+],
+styles: {
+header: {
+fontSize: 18,
+bold: true,
+margin: [0, 0, 0, 10]
+},
+subheader: {
+fontSize: 16,
+bold: true,
+margin: [0, 10, 0, 5]
+},
+tableExample: {
+margin: [0, 5, 0, 15]
+},
+sectionhead: {
+background:'yellow',
+fontSize: 17,
+bold: true,
+},
+tableHeader: {
+bold: true,
+fontSize: 13,
+color: 'black'
+}
+},
+defaultStyle: {
+alignment: 'justify'
+}
+
+}
