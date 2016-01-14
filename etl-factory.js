@@ -48,7 +48,7 @@ module.exports = function () {
                         whereClause += '(' + indicator.expression + ') or ';
                     }
                 }
-            });
+      node       });
         });
         var lastIndex = whereClause.lastIndexOf(' or ');
         whereClause = whereClause.substring(0, lastIndex);
