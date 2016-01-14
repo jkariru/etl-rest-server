@@ -8,6 +8,7 @@ var reports = [];
 reports.push.apply(reports,require('./reports/hiv-summary-report.json'));
 reports.push.apply(reports,require('./reports/moh-731-report.json'));
 reports.push.apply(reports,require('./reports/patient-register-report.json'));
+reports.push.apply(reports,require('./reports/aa-431-report.json'));
 
 //var walker = walk.walk("./reports", []);
 //walker.on("file", function (root, fileStats, next) {
@@ -192,7 +193,12 @@ module.exports = function () {
                         if (indicator.name === requestIndicatorName) {
                             if (indicator.name === singleIndicator.expression) {
                                 var column = singleIndicator.sql + ' as ' + singleIndicator.label;
+                                /**updated on 14/02/2016  to add
+                                base expression introduced as a test
+                                to handle %indicators
+                                **/
                                 column = column.replace('$expression', indicator.expression);
+                                 column = column.replace('$baseexpression', indicator.baseexpression);
                                 result.push(column);
                             }
                         }
@@ -200,7 +206,13 @@ module.exports = function () {
                 } else {
                     if (indicator.name === singleIndicator.expression) {
                         var column = singleIndicator.sql + ' as ' + indicator.name;
+                          /**updated on 14/02/2016  to add
+                          base expression introduced as a test
+                          to handle %indicators
+                          **/
                         column = column.replace('$expression', indicator.expression);
+                        column = column.replace('$baseexpression', indicator.baseexpression);
+
                         result.push(column);
                     }
                 }
