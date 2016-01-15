@@ -389,7 +389,7 @@
     {
         "name":"on_art",
         "label": "Total #  patient on ART",
-        "expression": "scheduled_visit = 1"
+        "expression": "encounter_datetime >= arv_start_date"
     },
 
 
@@ -577,7 +577,7 @@
         "name":"parcenton_art_total",
         "label": "parcenton_art_total",
         "expression": "encounter_datetime >= arv_start_date",
-        "baseexpression":"enrollment_date >= arv_start_date"
+        "expression2":"enrollment_date >= arv_start_date"
     }
 
 ]
