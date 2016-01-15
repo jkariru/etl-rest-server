@@ -374,13 +374,7 @@ var getFilters = function(filters) {
                 if (join[3]=='LEFT OUTER JOIN') s.left_outer_join(join[0],join[1],join[2]);
             });
            /**
-            //cohort  join  hack not tested
-               _.each(queryParts['joinsCohort'],function(cohort) {
-                            if (join.joinType=='JOIN') s.join(createSquelFromCohort(cohort,queryParams),cohort.alias,cohort.joinExpression);
-                            if (join.joinType=='INNER JOIN') s.join(createSquelFromCohort(cohort,queryParams),cohort.alias,cohort.joinExpression);
-                            if (join.joinType=='OUTER JOIN') s.outer_join(createSquelFromCohort(cohort,queryParams),cohort.alias,cohort.joinExpression);
-                            if (join.joinType=='LEFT OUTER JOIN') s.left_outer_join(createSquelFromCohort(cohort,queryParams),cohort.alias,cohort.joinExpression);
-                        });
+
 
 
 **/
@@ -458,22 +452,7 @@ var getFilters = function(filters) {
     return [ multiquery,multuvalues];
     };
 
-   function createSquelFromCohort(cohortDefination,queryParameters){
-        var cohortSql = squel.select()
-           .from(cohortDefination["tableName"],cohortDefination["alias"]);
-           //add  the fields
-             _.each(cohortDefination['fields'],function(field) {
-             //@todo->test to make sure  field.expression,field.label are not  empty strings or null/undefined
-                                  cohortSql.field(field.expression,field.label)
-             });
-             //add  the filters
-                 _.each(cohortDefination['filters'],function(filter) {
-                          //@todo->test to make sure  field.expression,field.label are not  empty strings or null/undefined
-                      cohortSql.where(filter.expression,queryParameters[filter.parameter])
-                          });
 
-return  cohortSql;
-    }
 
 
 	return service;
