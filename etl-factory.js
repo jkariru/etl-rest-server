@@ -48,7 +48,7 @@ module.exports = function () {
                         whereClause += '(' + indicator.expression + ') or ';
                     }
                 }
-      node       });
+            });
         });
         var lastIndex = whereClause.lastIndexOf(' or ');
         whereClause = whereClause.substring(0, lastIndex);
@@ -187,38 +187,58 @@ module.exports = function () {
         _.each(report.indicators, function (singleIndicator) {
             _.each(indicatorsSchema, function (indicator) {
                 if (requestParam.requestIndicators) {
-                    //compare request partams indicator list corresponds to the singleIndicator
+                    //compare request params indicator list corresponds to the singleIndicator
                     _.each(requestParam.requestIndicators.split(','), function (requestIndicatorName) {
                         if (indicator.name === requestIndicatorName) {
                             if (indicator.name === singleIndicator.expression) {
-                                var column = singleIndicator.sql + ' as ' + singleIndicator.label;
-                                /**updated on 14/02/2016  to add
-                                base expression introduced as a test
-                                to handle %indicators
-                                **/
-                                column = column.replace('$expression', indicator.expression);
-                                 column = column.replace('$baseexpression', indicator.baseexpression);
-                                result.push(column);
+                                //Determine indicator type, whether it is derived or an independent indicator
+                                if (singleIndicator.sql.match(/\[(.*?)\]/)) {
+                                   result.push(processesDerivedIndicator(report, singleIndicator, indicator));
+                                } else {
+                                    var column = singleIndicator.sql + ' as ' + singleIndicator.label;
+                                    column = column.replace('$expression', indicator.expression);
+                                    result.push(column);
+                                }
                             }
                         }
                     });
                 } else {
                     if (indicator.name === singleIndicator.expression) {
-                        var column = singleIndicator.sql + ' as ' + indicator.name;
-                          /**updated on 14/02/2016  to add
-                          base expression introduced as a test
-                          to handle %indicators
-                          **/
-                        column = column.replace('$expression', indicator.expression);
-                        column = column.replace('$baseexpression', indicator.baseexpression);
-
-                        result.push(column);
+                        //Determine indicator type, whether it is derived or an independent indicator
+                        if (singleIndicator.sql.match(/\[(.*?)\]/)) {
+                            result.push(processesDerivedIndicator(report, singleIndicator, indicator));
+                        } else {
+                            var column = singleIndicator.sql + ' as ' + indicator.name;
+                            column = column.replace('$expression', indicator.expression);
+                            result.push(column);
+                        }
                     }
                 }
             });
         });
-
         return result;
+
+    }
+
+    //converts set of derived indicators to sql columns
+    function processesDerivedIndicator(report,derivedIndicator,indicator){
+        var reg = /[\[\]']/g; //regex [] indicator
+        var matches = [];
+        derivedIndicator.sql.replace(/\[(.*?)\]/g, function(g0,g1){matches.push(g1);});
+        _.each(matches, function (indicatorKey) {
+            _.each(report.indicators, function (singleIndicator) {
+                if (indicatorKey === singleIndicator.expression) {
+                    _.each(indicatorsSchema, function (indicator) {
+                        if (indicator.name === indicatorKey) {
+                            var column = singleIndicator.sql;
+                            column = column.replace('$expression', indicator.expression);
+                            derivedIndicator.sql = derivedIndicator.sql.replace(indicatorKey, column);
+                        }
+                    });
+                }
+            });
+        });
+        return derivedIndicator.sql.replace(reg, '') + ' as ' + indicator.name;
     }
 
     //converts a set of supplement columns of type single into sql columns
