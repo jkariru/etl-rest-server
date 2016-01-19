@@ -381,7 +381,41 @@
         "label":"screened_for_tb_females_15_and_older",
         "expression":"screened_for_tb_females_15_and_older",
         "sql":"count(distinct if($expression,t1.encounter_id,null))"
+      },
+      <!--added total patients  indicator so that  we  can  use  the [indicator] OPERATOR [indicator] design  pattern-->
+      {
+        "label":"total_patients",
+        "expression":"total_patients",
+        "sql":"count(distinct if($expression,t1.person_id,null))"
+      },
+      {
+        "label":"percent_incare",
+        "expression":"percent_incare",
+        "sql":"([currently_in_care_total]/[total_patients]*100)"
+      },
+      {
+        "label":"percent_onart",
+        "expression":"percent_onart",
+        "sql":"([on_art]/[total_patients]*100)"
+      },
+      <!cant  find  indicator  tested-->
+      {
+        "label":"percent_tested_in_past_year",
+        "expression":"percent_tested_in_past_year",
+        "sql":"([on_art]/[total_patients]*100)"
+      },
+      {
+        "label":"percent_onart",
+        "expression":"percent_incare",
+        "sql":"([on_art]/[total_patients]*100)"
+      },
+      <!--cannot find  indicator virally surpressed-->
+      {
+        "label":"percent_virally_suppressed_in_past_year",
+        "expression":"percent_virally_suppressed_in_past_year",
+        "sql":"([vl_done_past_year_lte_1000]/[total_patients]*100)"
       }
+
     ],
     "supplementColumns":[
       {

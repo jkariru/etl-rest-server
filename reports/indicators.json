@@ -574,10 +574,23 @@
         "expression": "DATE_FORMAT(cd4_order_date,'%m-%d-%Y')"
     },
     {
-        "name":"parcenton_art_total",
-        "label": "parcenton_art_total",
-        "expression": "encounter_datetime >= arv_start_date",
-        "expression2":"enrollment_date >= arv_start_date"
+        "name":"total_patients",
+        "label": "total_patients",
+        "expression": "encounter_datetime >= arv_start_date"
+
+    },
+    {
+        "name":"percent_incare",
+        "label": "percent_incare",
+        "expression": ""
+
+    },
+    <!--cant  find current  indicator  showing tested in the  past year-->
+    {
+        "name":"-tested_in_past_year",
+        "label": "percent_incare",
+        "expression": ""
+
     }
 
 ]

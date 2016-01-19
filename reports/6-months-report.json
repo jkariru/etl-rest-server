@@ -1,0 +1,152 @@
+[{
+  "name": "dataset-past_six_months",
+  "table":{"schema":"etl","tableName":"flat_hiv_summary","alias":"t1"},
+  "joins":[
+    {"joinType":"INNER JOIN","schema":"amrs","tableName":"location","alias":"t2","joinExpression":"t1.location_uuid = t2.uuid"},
+    {"joinType":"INNER JOIN","schema":"amrs","tableName":"person","alias":"t3","joinExpression":"t1.person_id = t3.person_id"},
+    {"joinType":"INNER JOIN","schema":"etl","tableName":"derived_encounter","alias":"t4","joinExpression":"t4.encounter_id =t1.encounter_id"}
+
+  ],
+  "parameters": [
+    {"name":"startDate", "defaultValue":"2015-10-01"},
+    {"name":"endDate", "defaultValue":"2015-10-31"},
+    {"name":"locations","defaultValue":[]},
+    {"name":"groupByLocation", "defaultValue":[
+      {"label":"location","expression":"t1.location_id"}
+    ]
+    },
+    {"name":"groupParameter","defaultValue":[{"expression":"date_format(encounter_datetime,'%m-%Y')", "label":"date"}]}
+  ],
+
+  "filters": [
+    {"expression":"t1.location_id in ?","parameter":"locations"},
+    {"expression":"timestampdiff(month,encounter_datetime,?) <= 5", "parameter":"startDate"},
+    {"expression":"t1.encounter_datetime <= ?", "parameter":"endDate"},
+    {"expression":"t4.next_encounter_datetime is null or next_encounter_datetime > ?", "parameter":"endDate"},
+    {"expression":"t4.encounter_type !=99999"}
+
+  ],
+  "groupClause":[
+    {"parameter":"groupByLocation"},
+    {"parameter":"groupByMonth"}
+  ],
+  "indicators": [
+    "currently_in_care",
+    {
+      "label":"unscheduled_visits",
+      "expression":"scheduled_visit",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"on_art",
+      "expression":"on_art",
+      "sql":"count(distinct if($expression,t1.person_id,null))"
+    },
+    {
+      "label":"revisits_on_art",
+      "expression":"revisits_on_art",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_total",
+      "expression":"currently_in_care_total",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_males_lt_one",
+      "expression":"currently_in_care_males_lt_one",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_females_lt_one",
+      "expression":"currently_in_care_females_lt_one",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_males_1_to_15",
+      "expression":"currently_in_care_males_1_to_15",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_females_1_to_15",
+      "expression":"currently_in_care_females_1_to_15",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_males_15_and_older",
+      "expression":"currently_in_care_males_15_and_older",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"currently_in_care_females_15_and_older",
+      "expression":"currently_in_care_females_15_and_older",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_total",
+      "expression":"revisits_on_art_total",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_males_lt_one",
+      "expression":"revisits_on_art_males_lt_one",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_females_lt_one",
+      "expression":"revisits_on_art_females_lt_one",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_males_1_to_15",
+      "expression":"revisits_on_art_males_1_to_15",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_females_1_to_15",
+      "expression":"revisits_on_art_females_1_to_15",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_males_15_and_older",
+      "expression":"revisits_on_art_males_15_and_older",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"revisits_on_art_females_15_and_older",
+      "expression":"revisits_on_art_females_15_and_older",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"on_original_first_line",
+      "expression":"on_original_first_line",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"on_alternative_first_line",
+      "expression":"on_alternative_first_line",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    },
+    {
+      "label":"on_second_line",
+      "expression":"on_second_line",
+      "sql":"count(distinct if($expression,t1.encounter_id,null))"
+    }
+  ],
+  "supplementColumns":[
+    {
+      "label":"location",
+      "type":"single",
+      "sql":"t2.name"
+    },
+    {
+      "label":"location_uuid",
+      "type":"single",
+      "sql":"t1.location_uuid"
+    },
+    {
+      "label":"location_id",
+      "type":"single",
+      "sql":"t1.location_id"
+    }]
+}]
